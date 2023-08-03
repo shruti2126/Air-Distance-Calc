@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, {useState } from "react";
 import "./AirDistance.css";
 import Address from "./Address";
 import Point from "./Point";
@@ -39,44 +39,68 @@ const AirDistance = () => {
       });
   };
 
-  const distanceCalculation = async (pointA, pointB) => {
-    const loc1 = {
-      lat: parseFloat(pointA.split(",")[0]),
-      lng: parseFloat(pointA.split(",")[1]),
-    };
+  // const distanceCalculation = async (pointA, pointB) => {
+  //   const loc1 = {
+  //     lat: parseFloat(pointA.split(",")[0]),
+  //     lng: parseFloat(pointA.split(",")[1]),
+  //   };
 
-    const loc2 = {
-      lat: parseFloat(pointB.split(",")[0]),
-      lng: parseFloat(pointB.split(",")[1]),
-    };
+  //   const loc2 = {
+  //     lat: parseFloat(pointB.split(",")[0]),
+  //     lng: parseFloat(pointB.split(",")[1]),
+  //   };
 
-    const requestBody = {
-      loc1,
-      loc2,
-    };
+  //   const requestBody = {
+  //     loc1,
+  //     loc2,
+  //   };
 
-    fetch("http://localhost:8080/getDistance", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setResult(Number(data).toFixed(2));
-      })
-      .catch((error) => {
-        console.error("Error calculating distance:", error);
-      });
-  };
+  //   fetch("http://localhost:8080/getDistance", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(requestBody),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setResult(Number(data).toFixed(2));
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error calculating distance:", error);
+  //     });
+  // };
 
   const handleDistanceCalculation = async () => {
-    try {
-      await distanceCalculation(pointA, pointB);
-    } catch (error) {
-      console.log("Error in handleDistanceCalculation =", error);
-    }
+     const loc1 = {
+       lat: parseFloat(pointA.split(",")[0]),
+       lng: parseFloat(pointA.split(",")[1]),
+     };
+
+     const loc2 = {
+       lat: parseFloat(pointB.split(",")[0]),
+       lng: parseFloat(pointB.split(",")[1]),
+     };
+
+     const requestBody = {
+       loc1,
+       loc2,
+     };
+
+     fetch("http://localhost:8080/getDistance", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(requestBody),
+     })
+       .then((response) => response.json())
+       .then((data) => {
+         setResult(Number(data).toFixed(2));
+       })
+       .catch((error) => {
+         console.error("Error calculating distance:", error);
+       });
   };
 
   return (

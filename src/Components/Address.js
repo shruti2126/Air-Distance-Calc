@@ -2,7 +2,7 @@
 
 import "./AirDistance.css";
 
-const Address = ({ a1, setA1, a2, setA2}) => {
+const Address = ({ a1, setA1, a2, setA2 }) => {
   return (
     <div className="insert-address">
       <label htmlFor="address1"> Address1 : </label>
