@@ -9,6 +9,7 @@
   padding: 20px;
   border-radius: 10px;
   width: auto;
+  height: auto;
   margin: 0 auto;
 }
 
@@ -40,7 +41,8 @@ label {
 
 input[type="text"],
 textarea {
-  width: 100%;
+  min-width: 50vw;
+  overflow-x: scroll;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -66,5 +68,5 @@ input[type="submit"]:hover {
 input[type="text"]:focus,
 textarea:focus {
   outline: none;
-  border: 1px solid #4caf50;
+  border: 2px solid #564caf;
 }
