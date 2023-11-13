@@ -1,3 +1,7 @@
+# About
+A project created for a Software Engineering Competition. 
+Frontend created using ReactJS using create-react-app and backend in Java with Spring Boot.
+
 # Backend
 https://github.com/shruti2126/air-distance-calc-backend/tree/backend
 
