@@ -1,6 +1,8 @@
 # About
-A project created for a Software Engineering Competition. 
-Frontend created using ReactJS using create-react-app and backend in Java with Spring Boot.
+A simple webservice created for a Software Engineering Competition. 
+An Air-Distance-Calculator that uses the "Haversine Formula" to output the air distance (Km) between two places when provided in the
+form of latitude and longitude coordinates OR String addresses (that can be converted into (lat, lng) coordinates using the "Fetch Coordinates" button).
+Frontend was created using ReactJS using create-react-app and backend in Java with Spring Boot.
 
 # Backend
 https://github.com/shruti2126/air-distance-calc-backend/tree/backend
