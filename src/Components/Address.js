@@ -1,29 +1,41 @@
 /** @format */
 
-import "./AirDistance.css";
+import React, { useCallback } from "react";
+import AddressInput from "./AddressInput";
+import { useCoordinates } from "./CoordinatesContext";
 
-const Address = ({ a1, setA1, a2, setA2 }) => {
+const Address = () => {
+  const { pointA, pointB } = useCoordinates();
+
+  const handleAddressChangeA = useCallback(
+    (e) => {
+      pointA.setAddress(e.target.value);
+    },
+    [pointA]
+  );
+
+  const handleAddressChangeB = useCallback(
+    (e) => {
+      pointB.setAddress(e.target.value);
+    },
+    [pointB]
+  );
+
   return (
-    <div className="insert-address">
-      <label htmlFor="address1"> Address1 : </label>
-      <input
-        type="text"
-        id="address1"
-        className="address"
-        placeholder="Enter your Street address including state, zipcode and country"
-        value={a1}
-        onChange={(e) => setA1(e.target.value)}
+    <>
+      <AddressInput
+        label="Address for Point 1"
+        value={pointA.address}
+        onChange={handleAddressChangeA}
+        onFetch={pointA.fetchCoords}
       />
-
-      <label htmlFor="address2"> Address2 : </label>
-      <input
-        type="text"
-        id="address2"
-        placeholder="Enter your Street address including state, zipcode and country"
-        value={a2}
-        onChange={(e) => setA2(e.target.value)}
+      <AddressInput
+        label="Address for Point 2"
+        value={pointB.address}
+        onChange={handleAddressChangeB}
+        onFetch={pointB.fetchCoords}
       />
-    </div>
+    </>
   );
 };
 

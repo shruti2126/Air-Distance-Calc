@@ -1,66 +1,68 @@
 /** @format */
 import { useState } from "react";
+import { useCoordinates } from "./CoordinatesContext";
+import { calculateDistance } from "../utils/calculateDistance";
+import PointInput from "./PointInput";
 
-const Point = ({ pointA, setPointA, pointB, setPointB }) => {
+const Point = () => {
   const [result, setResult] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const { pointA, pointB } = useCoordinates();
 
   const handleDistanceCalculation = async () => {
-    const loc1 = {
-      lat: parseFloat(pointA.split(",")[0]),
-      lng: parseFloat(pointA.split(",")[1]),
-    };
-
-    const loc2 = {
-      lat: parseFloat(pointB.split(",")[0]),
-      lng: parseFloat(pointB.split(",")[1]),
-    };
-
-    const requestBody = {
-      loc1,
-      loc2,
-    };
-
-    fetch("http://localhost:8080/getDistance", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setResult(Number(data).toFixed(2));
-      })
-      .catch((error) => {
-        console.error("Error calculating distance:", error);
+    try {
+      console.log("point a and b = ", { pointA }, { pointB });
+      const distance = await calculateDistance({
+        coordsA: pointA.coordinates,
+        coordsB: pointB.coordinates,
       });
+      console.log("distance in handle calc distance = " + distance);
+      setResult(distance);
+    } catch (error) {
+      console.error("Error calculating distance:", error);
+      setResult("Error calculating distance");
+    }
   };
+
   return (
-    <div className="insert-coordinates">
-      <form onSubmit={handleSubmit}>
-        <h2>Point A </h2>
-        <input
-          type="text"
-          id="points"
-          value={pointA}
-          placeholder="latitude, longitude"
-          onChange={(e) => setPointA(e.target.value)}
-        />
-        <h2>Point B</h2>
-        <input
-          type="text"
-          value={pointB}
-          placeholder="latitude, longitude"
-          onChange={(e) => setPointB(e.target.value)}
-        />
-      </form>
-      <button onClick={handleDistanceCalculation}>Find Distance</button>
-      <div id="distance-result">Distance: {result} Km</div>
+    <div>
+      <PointInput pointA={pointA} pointB={pointB} />
+      <button onClick={handleDistanceCalculation} style={styles.button}>
+        Calculate Distance
+      </button>
+      <h2 style={styles.result}>Distance: {result} Km</h2>
     </div>
   );
+};
+const styles = {
+  container: {
+    padding: "20px",
+    backgroundColor: "#f5f5f5",
+    borderRadius: "8px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    textAlign: "center",
+  },
+  coordinate: {
+    marginBottom: "10px",
+  },
+  label: {
+    fontWeight: "bold",
+  },
+  value: {
+    marginLeft: "10px",
+  },
+  button: {
+    padding: "10px 20px",
+    backgroundColor: "#4CAF50",
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    marginTop: "20px",
+  },
+  result: {
+    marginTop: "20px",
+    fontWeight: "bold",
+    fontSize: "",
+  },
 };
 export default Point;

@@ -1,9 +1,10 @@
 /** @format */
 
-import AirDistance from "./Components/AirDistance";
+// import AirDistance from "./Components/AirDistance";
+import { CoordinatesProvider } from "./Components/CoordinatesContext";
 
 function App() {
-  return <AirDistance />;
+  return <CoordinatesProvider />
 }
 
 export default App;
